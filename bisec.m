@@ -8,12 +8,20 @@ else
     err = abs(f(p));
     while err > tol
         n = n+1;
-        if f(a) * f(b) < 0
-            b = p;
+        if f(p) < 0
+            if f(b) > 0
+                a = p;
+            else 
+                b = p;
+            end
         else 
-            a = p;
+            if f(b) > 0
+                b = p;
+            else
+                a = p;
+            end
         end
-        p = (a+b)/2;
+        p = (a+b) / 2;
         err = abs(f(p));
     end
 end
