@@ -1,6 +1,6 @@
 function [y,iter] = bisec(f,a,b,tol)
 n = 0;
-format long
+format longE
 if f(a) * f(b) > 0
     disp('Not good choise of interval')
 else
@@ -25,6 +25,10 @@ else
         err = abs(f(p));
     end
 end
-y = (a+b)/2;
+if p < tol
+    y = 0;
+else
+    y = p;
+end
 iter = n;
 end
