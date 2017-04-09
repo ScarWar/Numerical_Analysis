@@ -1,27 +1,39 @@
 function [y,iter] = newton(f,fx,x0)
 n = 0;
 format longE
-x_new =  x0 - f(x0)/fx(x0);
+    function y = newton_iter(x)
+        y = double(x) - f(double(x))/fx(double(x));
+    end
 
-if x_new == x0
+g = @newton_iter;
+
+x_old = g(x0)
+
+if x_old == x0
     y = x0;
     iter = n;
 else 
-    x_new = x_new - f(x_new)/fx(x_new);
+    x_new = g(x_old);
     err = abs(f(x_new));
-    while err > eps
-        x_new =  x_new - f(x_new)/fx(x_new);
-        err_new = abs(f(x_new));
-        if err_new > err
-            disp('Shit happens');
-            disp(x_new);
-        end
-        x_new = x_new;
-        err = err_new;
+    x_old = x_new;
+    
+    while err >= eps
+        
+        x_new =  g(x_old);
+        err = abs(double(f(x_new)));
+        x_old = x_new;
         n = n + 1;
+        Info = [num2str(x_new),'     ', num2str(x_new^10)];
+        disp(Info);
+        % if err > e
+        %     disp('Shit happens');
+        %     disp(x_new);
+        % end
+        % err = err_new;
     end
 end 
-    y = x_new;
+    y = x_old;
     iter = n;
 end
+
 
