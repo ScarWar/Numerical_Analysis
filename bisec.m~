@@ -1,0 +1,10 @@
+function [y,iter] = bisec(f,a,b,tol)
+
+if f(a) * f(b) > 0
+    disp('Not good choise of interval')
+end
+
+
+
+
+end
